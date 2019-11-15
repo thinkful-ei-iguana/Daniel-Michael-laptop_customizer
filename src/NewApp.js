@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-
-// Normalizes string as a slug - a string that is safe to use
-// in both URLs and html attributes
-
+import MainForm from './MainForm';
 import "./App.css";
 
 // This object will allow us to
 // easily convert numbers into US dollar values
-const USCurrencyFormat = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD"
-});
 
 class New_App extends Component {
   state = {
@@ -34,6 +27,11 @@ class New_App extends Component {
       }
     }
   };
+  
+  USCurrencyFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD"
+  });
 
   updateFeature = (feature, newValue) => {
     const selected = Object.assign({}, this.state.selected);
@@ -53,7 +51,7 @@ class New_App extends Component {
           <div className="summary__option__label">{feature} </div>
           <div className="summary__option__value">{selectedOption.name}</div>
           <div className="summary__option__cost">
-            {USCurrencyFormat.format(selectedOption.cost)}
+            {this.USCurrencyFormat.format(selectedOption.cost)}
           </div>
         </div>
       );
@@ -70,20 +68,20 @@ class New_App extends Component {
           <h1>ELF Computing | Laptops</h1>
         </header>
         <main>
-          {
-            <Main_Form
-              features={this.state.features}
-              USCurrencyFormat={this.USCurrencyFormat}
-            />
-          }
-
+          <MainForm
+            features={this.state.features}
+            USCurrencyFormat={this.USCurrencyFormat}
+            selected={this.state.selected}
+            updateFeature={this.updateFeature}
+          />
+          
           <section className="main__summary">
             <h2>Your cart</h2>
             {summary}
             <div className="summary__total">
               <div className="summary__total__label">Total</div>
               <div className="summary__total__value">
-                {USCurrencyFormat.format(total)}
+                {this.USCurrencyFormat.format(total)}
               </div>
             </div>
           </section>

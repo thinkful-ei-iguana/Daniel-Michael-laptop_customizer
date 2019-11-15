@@ -1,5 +1,6 @@
 import React from "react";
 import slugify from "slugify";
+
 export default function Main_Form(props) {
   const features = Object.keys(props.features).map((feature, idx) => {
     const featureHash = feature + "-" + idx;
@@ -12,21 +13,30 @@ export default function Main_Form(props) {
             id={itemHash}
             className="feature__option"
             name={slugify(feature)}
-            checked={item.name === this.state.selected[feature].name}
-            onChange={e => this.updateFeature(feature, item)}
+            checked={item.name === props.selected[feature].name}
+            onChange={e => props.updateFeature(feature, item)}
           />
           <label htmlFor={itemHash} className="feature__label">
-            {item.name} ({USCurrencyFormat.format(item.cost)})
+            {item.name} ({props.USCurrencyFormat.format(item.cost)})
           </label>
         </div>
       );
     });
-  });
 
+    return (
+      <fieldset className="feature" key={featureHash}>
+        <legend className="feature__name">
+          <h3>{feature}</h3>
+        </legend>
+        {options}
+      </fieldset>
+    );
+  });
+  
   return (
-    <>
-      <h2>Customize your Laptop</h2>
+    <form className="main__form">
+      <h2>Customize your laptop</h2>
       {features}
-    </>
+    </form>
   );
 }
