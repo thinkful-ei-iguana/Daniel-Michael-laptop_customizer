@@ -1,35 +1,33 @@
 import React from "react";
 import slugify from "slugify";
+import Feature from './Feature';
+import FeatureItem from './FeatureItem';
 
 export default function Main_Form(props) {
   const features = Object.keys(props.features).map((feature, idx) => {
     const featureHash = feature + "-" + idx;
     const options = props.features[feature].map(item => {
       const itemHash = slugify(JSON.stringify(item));
+      const name = slugify(feature);
       return (
-        <div key={itemHash} className="feature__item">
-          <input
-            type="radio"
-            id={itemHash}
-            className="feature__option"
-            name={slugify(feature)}
-            checked={item.name === props.selected[feature].name}
-            onChange={e => props.updateFeature(feature, item)}
-          />
-          <label htmlFor={itemHash} className="feature__label">
-            {item.name} ({props.USCurrencyFormat.format(item.cost)})
-          </label>
-        </div>
+        <FeatureItem 
+          itemHash={itemHash}
+          feature={feature}
+          item={item}
+          selected={props.selected}
+          name={name}
+          USCurrencyFormat={props.USCurrencyFormat}
+          updateFeature={props.updateFeature}
+        />
       );
     });
 
     return (
-      <fieldset className="feature" key={featureHash}>
-        <legend className="feature__name">
-          <h3>{feature}</h3>
-        </legend>
-        {options}
-      </fieldset>
+      <Feature 
+        featureHash={featureHash}
+        feature={feature}
+        options={options}
+      />
     );
   });
   
