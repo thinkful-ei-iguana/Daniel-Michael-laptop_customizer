@@ -1,7 +1,7 @@
 import React from "react";
 import slugify from "slugify";
-import Feature from './Feature';
-import FeatureItem from './FeatureItem';
+import Feature from "./Feature";
+import FeatureItem from "./FeatureItem";
 
 export default function Main_Form(props) {
   const features = Object.keys(props.features).map((feature, idx) => {
@@ -10,7 +10,8 @@ export default function Main_Form(props) {
       const itemHash = slugify(JSON.stringify(item));
       const name = slugify(feature);
       return (
-        <FeatureItem 
+        <FeatureItem
+          key={itemHash}
           itemHash={itemHash}
           feature={feature}
           item={item}
@@ -23,14 +24,15 @@ export default function Main_Form(props) {
     });
 
     return (
-      <Feature 
+      <Feature
+        key={featureHash}
         featureHash={featureHash}
         feature={feature}
         options={options}
       />
     );
   });
-  
+
   return (
     <form className="main__form">
       <h2>Customize your laptop</h2>

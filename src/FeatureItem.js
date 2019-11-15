@@ -1,9 +1,6 @@
-import React from 'react';
-import slugify from 'slugify';
+import React from "react";
 
 export default function Feature_Item(props) {
-  
-
   return (
     <div key={props.itemHash} className="feature__item">
       <input
@@ -18,5 +15,5 @@ export default function Feature_Item(props) {
         {props.item.name} ({props.USCurrencyFormat.format(props.item.cost)})
       </label>
     </div>
-  )
+  );
 }
